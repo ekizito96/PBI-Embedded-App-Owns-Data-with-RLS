@@ -9,7 +9,7 @@ Power BI provides for the following:
 5. Python
 
 ## (B) Key Steps
-1. Set authentication method (choose Master User and not Service Principal)
+1. Set authentication method (choose Master User or Service Principal)
 2. Register Power BI app in Azure Active Directory (Azure AD)
 3. Auntheticate app using either Service Principal or Username/password
 4. Generate access token (Embed Token API - A Power BI REST API)
