@@ -9,17 +9,17 @@ Power BI provides for the following:
 5. Python
 
 ## (B) Key Steps
-1. Set authentication method (choose Master User or Service Principal)
+1. Set authentication method *(choose Master Account User or Service Principal)*
 2. Register Power BI app in Azure Active Directory (Azure AD)
 3. Auntheticate app using either Service Principal or Username/password
-4. Generate access token (Embed Token API - A Power BI REST API)
-5. Embed report in portal/app
+4. Generate access token *(Embed Token API - A Power BI REST API)*
+5. Embed report in portal/app *(Refer to .NET Developer Samples in repo)*
 
 ### Key Aunthetication Params from Azure AD App Registration (Step 2 above)
 These strings are provided after app registration.
 They include:
 1. Display name (Service Principal name)
-2. Application (client} ID
+2. Application (client) ID
 3. Directory (tenant) ID
 4. Client secret
 
@@ -46,6 +46,21 @@ POST https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dashboards/{dashboardId
 2. **groupId**          
   - *string uuid*
     - *Set the Workspace ID*
+    
+#### **Headers**
+Every POST HTTP request sent to Power BI REST API must specify the **Content-Type** entity header to **application/json**.
+
+#### **Request Body**
+1. **accessLevel**      
+  - *string*  Sets the required access level for embed token generation
+     - *Can be View, Create, or Edit*
+2. **identities**          
+  - *array of strings*  A list of identities used for the Row-Level-Security filtering/rendering
+    - *Set the username, roles, and datasets*
+      - username can be any ASCII character, also of typestring 
+      - roles can be up to 50 for an identity, also of type string and cannot be more than 50 characters
+      - datasets is type string  
+
 
 ##### Example:
 
@@ -59,12 +74,10 @@ POST https://api.powerbi.com/v1.0/myorg/groups/f089354e-8366-4e18-aea3-4cb4a3a50
 {
   "accessLevel": "View",
   "identities": [
-    {
-      "datasets": [
-        "cfafbeb1-8037-4d0c-896e-a46fb27ff229"
-      ],
-      "identityBlob": {
-        "value": "eyJ0eX....AAA="
+        {
+            "username": "EffectiveIdentity",
+            "roles": [ "Role1", "Role2" ],
+            "datasets": [ "fe0a1aeb-f6a4-4b27-a2d3-b5df3bb28bdc" ]
       }
     }
   ]
@@ -81,5 +94,11 @@ Status code: 200
 }
 ```
 
+###### **Request preview**
+```
+POST https://api.powerbi.com/v1.0/myorg/groups/f089354e-8366-4e18-aea3-4cb4a3a50b48/dashboards/69ffaa6c-b36d-4d01-96f5-1ed67c64d4af/GenerateToken
+Authorization: Bearer H4sI....AAA=
+Content-type: application/json
 
+```
 
