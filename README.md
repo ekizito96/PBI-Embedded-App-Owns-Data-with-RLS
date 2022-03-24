@@ -102,3 +102,6 @@ Content-type: application/json
 
 ```
 
+
+Now, with all the pieces together, when a user logs into portal to view dashboard (PBI item), they'll only see the data that they're allowed to see, as defined by our row-level security in Power BI Desktop, and in extension Power BI service (cloud)
+
