@@ -1,6 +1,6 @@
 # PBI-Embedded-App-Owns-Data-Row-Level-Security-Filtering
 
-## (A) SDKs available for Power BI Embedded
+## SDKs available for Power BI Embedded
 Power BI provides for the following:
 1. .Net Framework
 2. .Net Core
@@ -8,8 +8,6 @@ Power BI provides for the following:
 4. Node JS
 5. Python
 
-
-## (B) Using .Net Framework
 ### Steps
 1. Set authentication method (choose Master User and not Service Principal)
 2. Register Power BI app in Azure Active Directory (Azure AD)
@@ -24,4 +22,22 @@ They include:
 2. Application (client} ID
 3. Directory (tenant) ID
 4. Client secret
+
+## The Embed Token API Documentation
+
+Generates an embed token to view the specified dashboard from the specified workspace.
+
+### Required Scope
+All of the following:
+
+  Dashboard.ReadWrite.All or Dashboard.Read.All
+  Report.ReadWrite.All or Report.Read.All
+  Dataset.ReadWrite.All or Dataset.Read.All
+
+#### HTTP 
+POST "https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dashboards/{dashboardId}/GenerateToken"
+
+##### URI Parameters
+1. dashboardId
+2. groupId
 
